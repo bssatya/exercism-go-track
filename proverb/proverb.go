@@ -1,29 +1,28 @@
-// This is a "stub" file.  It's a little start on your solution.
-// It's not a complete solution though; you have to write some code.
-
-// Package proverb should have a package comment that summarizes what it's about.
-// https://golang.org/doc/effective_go.html#commentary
+// Prackage proverb impliments menthod to create proverb with the words given
 package proverb
 
 import (
 	"fmt"
 )
 
-// Proverb should have a comment documenting it.
+const (
+	proverbLines = "For want of a %s the %s was lost."
+	endLine      = "And all for the want of a %s."
+)
+
+// Proverb function takes slice of stings and returns a proverb as slice of strings
 func Proverb(rhyme []string) []string {
-	proverb := []string{}
-	var temp string
-	// Write some code here to pass the test suite.
-	// Then remove all the stock comments.
-	// They're here to help you get started but they only clutter a finished solution.
-	// If you leave them in, reviewers may protest!
-	for i := 0; i < len(rhyme) - 1; i++ {
-		temp = ""
-		fmt.Sprintln(temp, "For want of " + rhyme[i] + "the" + rhyme[i+1] + "was lost")
-		proverb = append(proverb, temp)
+	rhymeLen := len(rhyme)
+	if rhymeLen == 0 {
+		return []string{}
 	}
-	fmt.Sprintln(temp, "And all for the want of a" + rhyme[0])
-	proverb = append(proverb, temp)
+
+	proverb := make([]string, rhymeLen)
+
+	for i := 0; i < rhymeLen-1; i++ {
+		proverb[i] = fmt.Sprintf(proverbLines, rhyme[i], rhyme[i+1])
+	}
+	proverb[rhymeLen-1] = fmt.Sprintf(endLine, rhyme[0])
 
 	return proverb
 }
